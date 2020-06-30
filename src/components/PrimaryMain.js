@@ -9,7 +9,6 @@ import {
 	get1stInnings100s,
 	getWickets,
 } from "../data/data.functions";
-import RunsChart from "./RunsChart";
 import InningsRunsChart from "./InninngsRunsChart";
 
 const PrimaryMain = () => {

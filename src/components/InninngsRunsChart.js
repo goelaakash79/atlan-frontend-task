@@ -53,7 +53,6 @@ const renderActiveShape = (props) => {
 		endAngle,
 		fill,
 		payload,
-		percent,
 		value,
 	} = props;
 	const sin = Math.sin(-RADIAN * midAngle);
