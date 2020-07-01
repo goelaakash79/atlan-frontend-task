@@ -1,5 +1,5 @@
 module.exports = {
-	purge: ["./src/components/*"],
+	purge: [],
 	target: "relaxed",
 	prefix: "",
 	important: false,
