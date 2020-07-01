@@ -1,20 +1,32 @@
 import data from "./data";
 
-const getTotalRuns = () => {
+// fetch("./data.json")
+// 	.then((res) => res.json())
+// 	.then((data) => {
+
+// 	});
+
+const getTotalRuns = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let totalRuns = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
 			? String(match.batting_score).replace("*", "")
 			: match.batting_score;
-		match.batting_score = String(match.batting_score).includes("DNB")
-			? 0
-			: match.batting_score;
+		if (String(match.batting_score).includes("DNB")) {
+			match.batting_score = 0;
+		}
 		totalRuns += +match.batting_score;
 	});
 	return totalRuns;
 };
 
-const getNumberOfOuts = () => {
+const getNumberOfOuts = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let count = 0;
 	data.forEach((match) => {
 		if (typeof match.batting_score === "number") count += 1;
@@ -22,99 +34,104 @@ const getNumberOfOuts = () => {
 	return count;
 };
 
-const getNumberOfNotOuts = () => {
-	let count = 0;
-	data.forEach((match) => {
-		count += 1;
-	});
-
-	return count - getNumberOfOuts();
-};
-
-const getBattingAverage = () => {
-	let count = 0;
-	data.forEach((match) => {
-		if (typeof match.batting_score === "string")
-			if (match.batting_score.includes("DNB")) count += 1;
-	});
-	return getTotalRuns() / (getNumberOfOuts() - count);
+const getBattingAverage = async () => {
+	const avg = (await getTotalRuns()) / (await getNumberOfOuts());
+	return avg.toFixed(2);
 };
 
 const debut = () => {
 	return data[0].date;
 };
 
-const getInnings = () => {
+const getInnings = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let count = 0;
 	data.forEach((match) => {
 		if (typeof match.batting_score === "string")
 			if (match.batting_score.includes("DNB")) count += 1;
 	});
-	return 463 - count;
+	return data.length - count;
 };
 
-const get100s = () => {
+const get100s = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let count = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
-			? Number(match.batting_score).replace("*", "")
-			: Number(match.batting_score);
+			? String(match.batting_score).replace("*", "")
+			: match.batting_score;
 		match.batting_score = String(match.batting_score).includes("DNB")
 			? 0
-			: Number(match.batting_score);
-		if (match.batting_score >= 100) count++;
+			: match.batting_score;
+		if (+match.batting_score >= 100) count++;
 	});
 	return count;
 };
 
-const get1stInnings100s = () => {
+const get1stInnings100s = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let count = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
-			? Number(match.batting_score).replace("*", "")
-			: Number(match.batting_score);
+			? String(match.batting_score).replace("*", "")
+			: match.batting_score;
 		match.batting_score = String(match.batting_score).includes("DNB")
 			? 0
-			: Number(match.batting_score);
-		if (match.batting_score >= 100 && match.batting_innings === "1st")
+			: match.batting_score;
+		if (+match.batting_score >= 100 && match.batting_innings === "1st")
 			count++;
 	});
 	return count;
 };
 
-const getWinStat = () => {
+const getWinStat = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let count = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
-			? Number(match.batting_score).replace("*", "")
-			: Number(match.batting_score);
+			? String(match.batting_score).replace("*", "")
+			: match.batting_score;
 		match.batting_score = String(match.batting_score).includes("DNB")
 			? 0
-			: Number(match.batting_score);
-		if (match.batting_score >= 50 && match.match_result === "won") count++;
+			: match.batting_score;
+		if (+match.batting_score >= 50 && match.match_result === "won") count++;
 	});
 	return count;
 };
 
-const getAusStat = () => {
+const getAusStat = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let runs = 0;
 	let matchs = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
-			? Number(match.batting_score).replace("*", "")
-			: Number(match.batting_score);
+			? String(match.batting_score).replace("*", "")
+			: match.batting_score;
 		match.batting_score = String(match.batting_score).includes("DNB")
 			? 0
-			: Number(match.batting_score);
+			: match.batting_score;
 		if (match.opposition === "v Australia") {
-			runs += match.batting_score;
+			runs += +match.batting_score;
 			matchs += 1;
 		}
 	});
 	return { runs, matchs };
 };
 
-const getWickets = () => {
+const getWickets = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
 	let wickets = 0;
 	data.forEach((match) => {
 		match.wickets = typeof match.wickets === "string" ? 0 : match.wickets;
@@ -128,7 +145,6 @@ export {
 	getNumberOfOuts,
 	getTotalRuns,
 	getBattingAverage,
-	getNumberOfNotOuts,
 	getInnings,
 	get100s,
 	get1stInnings100s,

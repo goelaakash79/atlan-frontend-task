@@ -1,13 +1,16 @@
 import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector } from "recharts";
 import data from "../data/data";
+// import {getTotalRuns} from "../data/data.functions";
 
 const getBattingScoreData = (score) => {
 	score = String(score).includes("*")
-		? Number(score).replace("*", "")
-		: Number(score);
-	score = String(score).includes("DNB") ? 0 : Number(score);
-	return score;
+		? String(score).replace("*", "")
+		: score;
+	if (String(score).includes("DNB")) {
+		score = 0;
+	}
+	return isNaN(score) ? 0 : +score;
 };
 
 let runs1stInn = 0;

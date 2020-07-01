@@ -6,8 +6,10 @@ const Header = () => {
 	const [totalRuns, setTotalRuns] = useState(null);
 
 	useEffect(() => {
-		const allRuns = getTotalRuns();
-		setTotalRuns(allRuns);
+		(async () => {
+			const allRuns = await getTotalRuns();
+			setTotalRuns(allRuns);
+		})();
 	}, []);
 
 	return (

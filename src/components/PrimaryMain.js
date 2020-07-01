@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	getBattingAverage,
 	getTotalRuns,
@@ -9,10 +9,32 @@ import {
 	get1stInnings100s,
 	getWickets,
 } from "../data/data.functions";
+
 import InningsRunsChart from "./InninngsRunsChart";
 
 const PrimaryMain = () => {
-	const batavg = String(getBattingAverage()).slice(0, 5);
+	const [wickets, setWickets] = useState(0);
+	const [batavg, setBatavg] = useState(0);
+	const [runs, setRuns] = useState(0);
+	const [ausStat, setAusStat] = useState(0);
+	const [innings, setInnings] = useState(0);
+	const [centuries, setCenturies] = useState(0);
+	const [winStat, setWinStat] = useState(0);
+	const [inning1st100s, setInning1st100s] = useState(0);
+
+	useEffect(() => {
+		(async () => {
+			setBatavg(await getBattingAverage());
+			setWickets(await getWickets());
+			setRuns(await getTotalRuns());
+			setCenturies(await get100s());
+			setAusStat(await getAusStat());
+			setInnings(await getInnings());
+			setWinStat(await getWinStat());
+			setInning1st100s(await get1stInnings100s());
+		})();
+	}, []);
+
 	const svg = (
 		<svg width={48} height={48} viewBox="0 0 48 48">
 			<g
@@ -266,11 +288,11 @@ const PrimaryMain = () => {
 										</span>{" "}
 										Sachin scored{" "}
 										<span className="text-indigo-500 font-bold">
-											{getTotalRuns()}
+											{runs}
 										</span>{" "}
 										runs in{" "}
 										<span className="text-indigo-500 font-bold">
-											{getInnings()}
+											{innings}
 										</span>{" "}
 										innings.
 									</p>
@@ -290,20 +312,20 @@ const PrimaryMain = () => {
 								</h2>
 								<div className="py-2 w-full">
 									<h2 className="title-font font-bold font-serif text-4xl text-blue-700">
-										{get100s()}
+										{centuries}
 									</h2>
 									<p className="font-medium text-gray-700 italic">
 										Sachin scored{" "}
 										<span className="text-indigo-500 font-bold">
-											{get100s()}
+											{centuries}
 										</span>{" "}
 										100s in ODIs, adding to it{" "}
 										<span className="text-indigo-500 font-bold">
-											{get1stInnings100s()}
+											{inning1st100s}
 										</span>{" "}
 										100s were scored in 1st innings, and{" "}
 										<span className="text-indigo-500 font-bold">
-											{get100s() - get1stInnings100s()}
+											{centuries - inning1st100s}
 										</span>{" "}
 										100s were scored in 2nd innings of the
 										game.
@@ -324,12 +346,12 @@ const PrimaryMain = () => {
 								</h2>
 								<div className="py-2 w-full">
 									<h2 className="title-font font-bold font-serif text-4xl text-blue-700">
-										{getWinStat()}
+										{winStat}
 									</h2>
 									<p className="font-medium text-gray-700 italic">
 										India won{" "}
 										<span className="text-indigo-500 font-bold">
-											{getWinStat()}
+											{winStat}
 										</span>{" "}
 										matches, when Sachin scored a{" "}
 										<span className="text-indigo-500 font-bold">
@@ -354,16 +376,16 @@ const PrimaryMain = () => {
 								</h2>
 								<div className="py-2 w-full">
 									<h2 className="title-font font-bold font-serif text-4xl text-blue-700">
-										{getAusStat().runs}
+										{ausStat.runs}
 									</h2>
 									<p className="font-medium text-gray-700 italic">
 										Sachin scored{" "}
 										<span className="text-indigo-500 font-bold">
-											{getAusStat().runs}
+											{ausStat.runs}
 										</span>{" "}
 										runs against Australia{" "}
 										<span className="text-indigo-500 font-bold">
-											{getAusStat().matchs}
+											{ausStat.matchs}
 										</span>{" "}
 										ODIs, which clearly shows his class
 										against even bigger teams.
@@ -384,13 +406,13 @@ const PrimaryMain = () => {
 								</h2>
 								<div className="py-2 w-full">
 									<h2 className="title-font font-bold font-serif text-4xl text-blue-700">
-										{getWickets()}
+										{wickets}
 									</h2>
 									<p className="font-medium text-gray-700 italic">
 										Being a top-order batsman, Sachin proved
 										to be a trickster too. He took{" "}
 										<span className="text-indigo-500 font-bold">
-											{getWickets()}
+											{wickets}
 										</span>{" "}
 										wickets in his entire ODI career,
 										breaking crucial partnerships and hence
@@ -414,16 +436,16 @@ const PrimaryMain = () => {
 							with pure class in both the innings of the game.
 						</p>
 						<img
-							class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
+							className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
 							alt="hero"
 							src="https://dummyimage.com/720x600"
 						/>
 
-						<div class="text-center lg:w-2/3 w-full">
-							<h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+						<div className="text-center lg:w-2/3 w-full">
+							<h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
 								Microdosing synth tattooed vexillologist
 							</h1>
-							<p class="mb-8 leading-relaxed">
+							<p className="mb-8 leading-relaxed">
 								Meggings kinfolk echo park stumptown DIY, kale
 								chips beard jianbing tousled. Chambray
 								dreamcatcher trust fund, kitsch vice godard
@@ -432,11 +454,11 @@ const PrimaryMain = () => {
 								PBR&amp;B pickled ennui celiac mlkshk freegan
 								photo booth af fingerstache pitchfork.
 							</p>
-							<div class="flex justify-center">
-								<button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+							<div className="flex justify-center">
+								<button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
 									Button
 								</button>
-								<button class="ml-4 inline-flex text-gray-700 bg-gray-200 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg">
+								<button className="ml-4 inline-flex text-gray-700 bg-gray-200 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg">
 									Button
 								</button>
 							</div>
