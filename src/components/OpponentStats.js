@@ -1,6 +1,5 @@
 import React, { useState, Suspense, useEffect } from "react";
 import { getTeamData } from "../data/data.functions";
-// import OpponentRunChart from "./OpponentRunChart";
 
 const OpponentRunChart = React.lazy(() => import("./OpponentRunChart"));
 const OpponentStats = ({ teams }) => {

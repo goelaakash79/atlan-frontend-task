@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector } from "recharts";
 import data from "../data/data";
-// import {getTotalRuns} from "../data/data.functions";
 
 const getBattingScoreData = (score) => {
 	score = String(score).includes("*")
