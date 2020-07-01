@@ -140,6 +140,78 @@ const getWickets = async () => {
 	return wickets;
 };
 
+const getDependingRecord = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
+	let count = 0;
+	let century = 0;
+	data.forEach((match) => {
+		match.batting_score = String(match.batting_score).includes("*")
+			? String(match.batting_score).replace("*", "")
+			: match.batting_score;
+		match.batting_score = String(match.batting_score).includes("DNB")
+			? 0
+			: match.batting_score;
+
+		if (+match.batting_score >= 100) century++;
+		if (+match.batting_score >= 100 && match.match_result === "won")
+			count++;
+	});
+	return { count, century };
+};
+
+const getAllTeams = async () => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
+	let teams = new Set();
+	data.forEach((match) => {
+		teams.add(match.opposition.replace("v ", ""));
+	});
+	teams = Array.from(teams);
+	return teams;
+};
+
+const getTeamData = async (team) => {
+	const res = await fetch("./data.json");
+	const data = await res.json();
+
+	let dt = {
+		runs: 0,
+		centuries: 0,
+		fifties: 0,
+		wickets: 0,
+		catches: 0,
+		matches: 0,
+		timeline: [],
+	};
+	data.forEach((match) => {
+		match.batting_score = String(match.batting_score).includes("*")
+			? String(match.batting_score).replace("*", "")
+			: match.batting_score;
+		match.batting_score = String(match.batting_score).includes("DNB")
+			? 0
+			: match.batting_score;
+		if (match.opposition === `v ${team}`) {
+			dt.runs += +match.batting_score;
+			if (+match.batting_score >= 100) dt.centuries += 1;
+			if (+match.batting_score >= 50) dt.fifties += 1;
+			dt.wickets += isNaN(+match.wickets) ? 0 : +match.wickets;
+			dt.catches += isNaN(+match.catches) ? 0 : +match.catches;
+			dt.matches += 1;
+			dt.timeline.push({
+				runs: +match.batting_score,
+				ground: match.ground,
+				date: match.date,
+				wickets: isNaN(+match.wickets) ? 0 : +match.wickets,
+				catches: isNaN(+match.catches) ? 0 : +match.catches,
+			});
+		}
+	});
+	return dt;
+};
+
 export {
 	debut,
 	getNumberOfOuts,
@@ -150,5 +222,8 @@ export {
 	get1stInnings100s,
 	getWinStat,
 	getAusStat,
+	getDependingRecord,
 	getWickets,
+	getAllTeams,
+	getTeamData,
 };

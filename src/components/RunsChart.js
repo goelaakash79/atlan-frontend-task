@@ -38,7 +38,6 @@ export default class RunsChart extends PureComponent {
 						<LineChart
 							width={1200}
 							height={300}
-							// className="overflow-auto"
 							data={dataSet}
 							margin={{
 								top: 5,
@@ -58,17 +57,11 @@ export default class RunsChart extends PureComponent {
 							/>
 
 							<Tooltip />
-							<XAxis dataKey="name">
-								{/* <Label
-									value="Pages of my website"
-									offset={0}
-									position="insideBottom"
-								/> */}
-							</XAxis>
+							<XAxis dataKey="name" />
 							<Line
 								type="monotoneY"
 								dataKey="runs"
-								stroke="#2026D2"
+								stroke="#4C51BF"
 								strokeWidth={2}
 								activeDot={{ r: 8 }}
 							/>
