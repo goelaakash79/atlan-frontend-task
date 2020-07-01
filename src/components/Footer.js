@@ -35,8 +35,8 @@ const Footer = () => {
 								With the given stats, I have represented the
 								data to prove that Sachin Tendulkar was one of
 								best cricket player of his time. But, i would
-								still place my bet on MS Dhoni. He is the
-								"best".
+								still place my bet on MS Dhoni. He is the "best"{" "}
+								{"😅"}.
 								<br />
 								<br />
 								Click the button below to open the code and
