@@ -1,14 +1,8 @@
-import data from "./data";
+import data from "./data.js";
 
-// fetch("./data.json")
-// 	.then((res) => res.json())
-// 	.then((data) => {
-
-// 	});
-
+const dc = data;
 const getTotalRuns = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
+	const data = [...dc];
 
 	let totalRuns = 0;
 	data.forEach((match) => {
@@ -56,9 +50,9 @@ const getInnings = async () => {
 };
 
 const get100s = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let count = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
@@ -73,9 +67,9 @@ const get100s = async () => {
 };
 
 const get1stInnings100s = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let count = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
@@ -91,9 +85,9 @@ const get1stInnings100s = async () => {
 };
 
 const getWinStat = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let count = 0;
 	data.forEach((match) => {
 		match.batting_score = String(match.batting_score).includes("*")
@@ -108,9 +102,9 @@ const getWinStat = async () => {
 };
 
 const getAusStat = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let runs = 0;
 	let matchs = 0;
 	data.forEach((match) => {
@@ -129,9 +123,9 @@ const getAusStat = async () => {
 };
 
 const getWickets = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let wickets = 0;
 	data.forEach((match) => {
 		match.wickets = typeof match.wickets === "string" ? 0 : match.wickets;
@@ -141,9 +135,9 @@ const getWickets = async () => {
 };
 
 const getDependingRecord = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let count = 0;
 	let century = 0;
 	data.forEach((match) => {
@@ -162,9 +156,9 @@ const getDependingRecord = async () => {
 };
 
 const getAllTeams = async () => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let teams = new Set();
 	data.forEach((match) => {
 		teams.add(match.opposition.replace("v ", ""));
@@ -174,9 +168,9 @@ const getAllTeams = async () => {
 };
 
 const getTeamData = async (team) => {
-	const res = await fetch("./data.json");
-	const data = await res.json();
-
+	// const res = await fetch("./data.json");
+	// const data = await res.json();
+	const data = [...dc];
 	let dt = {
 		runs: 0,
 		centuries: 0,
