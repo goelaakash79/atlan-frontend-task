@@ -7,6 +7,7 @@ import {
 	CartesianGrid,
 	Tooltip,
 	Legend,
+	ResponsiveContainer,
 } from "recharts";
 
 export default class OpponentRunChart extends PureComponent {
@@ -29,47 +30,51 @@ export default class OpponentRunChart extends PureComponent {
 		});
 
 		return data.length !== 0 ? (
-			<BarChart
-				width={640}
-				height={250}
-				data={data}
-				margin={{
-					top: 24,
-					right: 0,
-					bottom: 0,
-					left: 0,
-				}}
-			>
-				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="name" />
-				<YAxis />
-				<Tooltip />
-				<Legend />
-				<Bar
-					dataKey="runs"
-					barSize={20}
-					fill="#9294C0"
-					stackId="a"
-					strokeWidth={2}
-					stroke="#4C51BF"
-				/>
-				<Bar
-					dataKey="wickets"
-					barSize={20}
-					stackId="a"
-					fill="#82ca9d"
-					strokeWidth={2}
-					stroke="#2F855A"
-				/>
-				<Bar
-					dataKey="catches"
-					barSize={20}
-					stackId="a"
-					fill="#FF9900"
-					strokeWidth={2}
-					stroke="#DB4437"
-				/>
-			</BarChart>
+			<div className="mt-8 sm:w-full w-screen" style={{ height: 250 }}>
+				<ResponsiveContainer>
+					<BarChart
+						// width={640}
+						// height={250}
+						data={data}
+						margin={{
+							top: 24,
+							right: 0,
+							bottom: 0,
+							left: 0,
+						}}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="name" />
+						<YAxis />
+						<Tooltip />
+						<Legend />
+						<Bar
+							dataKey="runs"
+							barSize={20}
+							fill="#9294C0"
+							stackId="a"
+							strokeWidth={2}
+							stroke="#4C51BF"
+						/>
+						<Bar
+							dataKey="wickets"
+							barSize={20}
+							stackId="a"
+							fill="#82ca9d"
+							strokeWidth={2}
+							stroke="#2F855A"
+						/>
+						<Bar
+							dataKey="catches"
+							barSize={20}
+							stackId="a"
+							fill="#FF9900"
+							strokeWidth={2}
+							stroke="#DB4437"
+						/>
+					</BarChart>
+				</ResponsiveContainer>
+			</div>
 		) : (
 			<p className="mt-4 italic">Select an opponnent to view stats</p>
 		);

@@ -6,6 +6,7 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
+	ResponsiveContainer,
 } from "recharts";
 import data from "../data/data";
 
@@ -34,38 +35,42 @@ export default class RunsChart extends PureComponent {
 						Sachin's ODI Runs Timeline
 						<hr />
 					</h1>
-					<div className="mt-8">
-						<LineChart
-							width={1200}
-							height={300}
-							data={dataSet}
-							margin={{
-								top: 5,
-								right: 5,
-								left: 5,
-								bottom: 5,
-							}}
-						>
-							<CartesianGrid strokeDasharray="3 3" />
-							<YAxis
-								label={{
-									value: "Runs",
-									angle: -90,
-									position: "insideLeft",
-									textAnchor: "middle",
-								}}
-							/>
 
-							<Tooltip />
-							<XAxis dataKey="name" />
-							<Line
-								type="monotoneY"
-								dataKey="runs"
-								stroke="#4C51BF"
-								strokeWidth={2}
-								activeDot={{ r: 8 }}
-							/>
-						</LineChart>
+					<div
+						className="mt-8 sm:w-full w-screen"
+						style={{ height: 300 }}
+					>
+						<ResponsiveContainer>
+							<LineChart
+								data={dataSet}
+								margin={{
+									top: 5,
+									right: 5,
+									left: 5,
+									bottom: 5,
+								}}
+							>
+								<CartesianGrid strokeDasharray="3 3" />
+								<YAxis
+									label={{
+										value: "Runs",
+										angle: -90,
+										position: "insideLeft",
+										textAnchor: "middle",
+									}}
+								/>
+
+								<Tooltip />
+								<XAxis dataKey="name" />
+								<Line
+									type="monotoneY"
+									dataKey="runs"
+									stroke="#4C51BF"
+									strokeWidth={2}
+									activeDot={{ r: 8 }}
+								/>
+							</LineChart>
+						</ResponsiveContainer>
 						<p className="text-center text-black">
 							Matches with different teams
 						</p>
