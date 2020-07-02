@@ -11,7 +11,15 @@ const Footer = React.lazy(() => import("./components/Footer.js"));
 
 function App() {
 	return (
-		<React.Suspense fallback={<div>loading ...</div>}>
+		<React.Suspense
+			fallback={
+				<div className="flex justify-center items-center h-screen">
+					<h1 className="font-serif text-4xl bold font-bold text-gray-700">
+						Loading ...
+					</h1>
+				</div>
+			}
+		>
 			<Header />
 			<PrimaryMain />
 			<RunsChart />
